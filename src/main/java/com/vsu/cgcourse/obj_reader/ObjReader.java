@@ -1,12 +1,13 @@
 package com.vsu.cgcourse.obj_reader;
 
+import com.vsu.cgcourse.math.Vector2f;
+import com.vsu.cgcourse.math.Vector3f;
 import com.vsu.cgcourse.model.Mesh;
 
-import javax.vecmath.Vector2f;
-import javax.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class ObjReader {
 
