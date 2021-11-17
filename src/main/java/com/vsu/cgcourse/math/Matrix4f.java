@@ -34,48 +34,48 @@ public class Matrix4f {
     @Override
     public String toString() {
         return "Matrix4f" + "\n" +
-                '{' + vector1.getX() + " " + vector2.getX() + " " + vector3.getX() +  " " + vector4.getX() + '}' + "\n" +
-                '{' + vector1.getY() + " " + vector2.getY() + " " + vector3.getY() +  " " + vector4.getY() + '}' + "\n" +
-                '{' + vector1.getZ() + " " + vector2.getZ() + " " + vector3.getZ() +  " " + vector4.getZ() + '}' + "\n" +
-                '{' + vector1.getW() + " " + vector2.getW() + " " + vector3.getW() +  " " + vector4.getW() + '}';
+                '{' + vector1.getX() + " " + vector2.getX() + " " + vector3.getX() + " " + vector4.getX() + '}' + "\n" +
+                '{' + vector1.getY() + " " + vector2.getY() + " " + vector3.getY() + " " + vector4.getY() + '}' + "\n" +
+                '{' + vector1.getZ() + " " + vector2.getZ() + " " + vector3.getZ() + " " + vector4.getZ() + '}' + "\n" +
+                '{' + vector1.getW() + " " + vector2.getW() + " " + vector3.getW() + " " + vector4.getW() + '}';
     }
 
-    public static void printMatrix(Matrix4f matrix){
+    public static void printMatrix(Matrix4f matrix) {
         System.out.println(matrix.toString());
     }
 
-    public static Matrix4f sumMatrix(final Matrix4f matrix1, final Matrix4f matrix2){
+    public static Matrix4f sumMatrix(final Matrix4f matrix1, final Matrix4f matrix2) {
         return new Matrix4f(
-                Vector4f.sumVectors(matrix1.getVector1(),matrix2.getVector1()),
-                Vector4f.sumVectors(matrix1.getVector2(),matrix2.getVector2()),
-                Vector4f.sumVectors(matrix1.getVector3(),matrix2.getVector3()),
-                Vector4f.sumVectors(matrix1.getVector4(),matrix2.getVector4())
+                Vector4f.sumVectors(matrix1.getVector1(), matrix2.getVector1()),
+                Vector4f.sumVectors(matrix1.getVector2(), matrix2.getVector2()),
+                Vector4f.sumVectors(matrix1.getVector3(), matrix2.getVector3()),
+                Vector4f.sumVectors(matrix1.getVector4(), matrix2.getVector4())
         );
     }
 
-    public static Matrix4f subtractMatrix(final Matrix4f matrix1, final Matrix4f matrix2){
+    public static Matrix4f subtractMatrix(final Matrix4f matrix1, final Matrix4f matrix2) {
         return new Matrix4f(
-                Vector4f.subtractVectors(matrix1.getVector1(),matrix2.getVector1()),
-                Vector4f.subtractVectors(matrix1.getVector2(),matrix2.getVector2()),
-                Vector4f.subtractVectors(matrix1.getVector3(),matrix2.getVector3()),
-                Vector4f.subtractVectors(matrix1.getVector4(),matrix2.getVector4())
+                Vector4f.subtractVectors(matrix1.getVector1(), matrix2.getVector1()),
+                Vector4f.subtractVectors(matrix1.getVector2(), matrix2.getVector2()),
+                Vector4f.subtractVectors(matrix1.getVector3(), matrix2.getVector3()),
+                Vector4f.subtractVectors(matrix1.getVector4(), matrix2.getVector4())
         );
     }
 
-    public static Matrix4f nullMatrix4f(){
-        Vector4f vector1 = new Vector4f(0,0,0,0);
-        Vector4f vector2 = new Vector4f(0,0,0,0);
-        Vector4f vector3 = new Vector4f(0,0,0,0);
-        Vector4f vector4 = new Vector4f(0,0,0,0);
-        return new Matrix4f(vector1,vector2,vector3,vector4);
+    public static Matrix4f nullMatrix4f() {
+        Vector4f vector1 = new Vector4f(0, 0, 0, 0);
+        Vector4f vector2 = new Vector4f(0, 0, 0, 0);
+        Vector4f vector3 = new Vector4f(0, 0, 0, 0);
+        Vector4f vector4 = new Vector4f(0, 0, 0, 0);
+        return new Matrix4f(vector1, vector2, vector3, vector4);
     }
 
-    public static Matrix4f identityMatrix4f(){
-        Vector4f vector1 = new Vector4f(1,0,0,0);
-        Vector4f vector2 = new Vector4f(0,1,0,0);
-        Vector4f vector3 = new Vector4f(0,0,1,0);
-        Vector4f vector4 = new Vector4f(0,0,0,1);
-        return new Matrix4f(vector1,vector2,vector3,vector4);
+    public static Matrix4f identityMatrix4f() {
+        Vector4f vector1 = new Vector4f(1, 0, 0, 0);
+        Vector4f vector2 = new Vector4f(0, 1, 0, 0);
+        Vector4f vector3 = new Vector4f(0, 0, 1, 0);
+        Vector4f vector4 = new Vector4f(0, 0, 0, 1);
+        return new Matrix4f(vector1, vector2, vector3, vector4);
     }
 
     public static Matrix4f transposition(final Matrix4f matrix) {
@@ -99,7 +99,7 @@ public class Matrix4f {
                 matrix.getVector2().getW(),
                 matrix.getVector3().getW(),
                 matrix.getVector4().getW());
-        return new Matrix4f(vector1,vector2,vector3,vector4);
+        return new Matrix4f(vector1, vector2, vector3, vector4);
     }
 
     public static Vector4f multiplicationByAColumnVector(final Matrix4f matrix, final Vector4f vector) {
