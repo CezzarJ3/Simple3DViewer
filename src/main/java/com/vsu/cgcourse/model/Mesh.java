@@ -1,7 +1,7 @@
 package com.vsu.cgcourse.model;
 
 import java.util.*;
-import javax.vecmath.Vector3f;
+import javax.math.Vector3f;
 import javax.vecmath.Vector2f;
 
 public class Mesh {
@@ -16,3 +16,5 @@ public class Mesh {
     public ArrayList<ArrayList<Integer>> polygonTextureVertexIndices = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> polygonNormalIndices = new ArrayList<>();
 }
+
+//привет Юля.Напиши в вк *на улице холодно*, когда увидишь это сообщение
