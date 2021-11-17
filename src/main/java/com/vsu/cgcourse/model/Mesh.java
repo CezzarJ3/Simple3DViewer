@@ -17,4 +17,4 @@ public class Mesh {
     public ArrayList<ArrayList<Integer>> polygonNormalIndices = new ArrayList<>();
 }
 
-//привет Юля
+//привет Юля.Напиши в вк *на улице холодно*, когда увидишь это сообщение
