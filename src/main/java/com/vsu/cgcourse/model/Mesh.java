@@ -1,8 +1,11 @@
 package com.vsu.cgcourse.model;
 
 import java.util.*;
-import javax.math.Vector3f;
-import javax.vecmath.Vector2f;
+
+import com.vsu.cgcourse.math.Vector3f;
+import com.vsu.cgcourse.math.Vector2f;
+
+
 
 public class Mesh {
 
@@ -17,4 +20,4 @@ public class Mesh {
     public ArrayList<ArrayList<Integer>> polygonNormalIndices = new ArrayList<>();
 }
 
-//привет Юля.Напиши в вк *на улице холодно*, когда увидишь это сообщение
+
