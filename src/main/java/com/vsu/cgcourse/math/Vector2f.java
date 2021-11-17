@@ -31,17 +31,17 @@ public class Vector2f {
         return y;
     }
 
-    public static void printVector(Vector2f vector){
+    public static void printVector(Vector2f vector) {
         System.out.println(vector.toString());
     }
 
-    public static Vector2f sumVectors(final Vector2f vector1, final Vector2f vector2){
+    public static Vector2f sumVectors(final Vector2f vector1, final Vector2f vector2) {
         return new Vector2f(
                 vector1.getX() + vector2.getX(),
                 vector1.getY() + vector2.getY());
     }
 
-    public static Vector2f subtractVectors(final Vector2f vector1, final Vector2f vector2){
+    public static Vector2f subtractVectors(final Vector2f vector1, final Vector2f vector2) {
         return new Vector2f(
                 vector1.getX() - vector2.getX(),
                 vector1.getY() - vector2.getY());
@@ -72,11 +72,11 @@ public class Vector2f {
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY());
         return new Vector2f(
-                vector.getX()/length,
-                vector.getY()/length);
+                vector.getX() / length,
+                vector.getY() / length);
     }
 
-    public static double dotProduct(final Vector2f vector1, final Vector2f vector2){ //скалярное произведение
+    public static double dotProduct(final Vector2f vector1, final Vector2f vector2) { //скалярное произведение
         return (vector1.getX() * vector2.getX() +
                 vector1.getY() * vector2.getY());
     }

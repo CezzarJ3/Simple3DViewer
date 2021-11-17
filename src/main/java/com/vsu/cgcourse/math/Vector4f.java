@@ -27,7 +27,7 @@ public class Vector4f {
         return Math.abs(x - other.x) < eps && Math.abs(y - other.y) < eps && Math.abs(z - other.z) < eps && Math.abs(w - other.w) < eps;
     }
 
-    public static void printVector(Vector4f vector){
+    public static void printVector(Vector4f vector) {
         System.out.println(vector.toString());
     }
 
@@ -47,7 +47,7 @@ public class Vector4f {
         return w;
     }
 
-    public static Vector4f sumVectors(final Vector4f vector1, final Vector4f vector2){
+    public static Vector4f sumVectors(final Vector4f vector1, final Vector4f vector2) {
         return new Vector4f(
                 vector1.getX() + vector2.getX(),
                 vector1.getY() + vector2.getY(),
@@ -55,7 +55,7 @@ public class Vector4f {
                 vector1.getW() + vector2.getW());
     }
 
-    public static Vector4f subtractVectors(final Vector4f vector1, final Vector4f vector2){
+    public static Vector4f subtractVectors(final Vector4f vector1, final Vector4f vector2) {
         return new Vector4f(
                 vector1.getX() - vector2.getX(),
                 vector1.getY() - vector2.getY(),
@@ -74,10 +74,10 @@ public class Vector4f {
     public static Vector4f scalarDivision(final Vector4f vector, double scalar) throws Exception {
         if (scalar != 0) {
             return new Vector4f(
-                    vector.getX()/scalar,
-                    vector.getY()/scalar,
-                    vector.getZ()/scalar,
-                    vector.getW()/scalar);
+                    vector.getX() / scalar,
+                    vector.getY() / scalar,
+                    vector.getZ() / scalar,
+                    vector.getW() / scalar);
         } else throw new Exception("На ноль делить нельзя!");
     }
 
@@ -96,13 +96,13 @@ public class Vector4f {
                         vector.getZ() * vector.getZ() +
                         vector.getW() * vector.getW());
         return new Vector4f(
-                vector.getX()/length,
-                vector.getY()/length,
-                vector.getZ()/length,
-                vector.getW()/length);
+                vector.getX() / length,
+                vector.getY() / length,
+                vector.getZ() / length,
+                vector.getW() / length);
     }
 
-    public static double dotProduct(final Vector4f vector1, final Vector4f vector2){ //скалярное произведение
+    public static double dotProduct(final Vector4f vector1, final Vector4f vector2) { //скалярное произведение
         return (
                 vector1.getX() * vector2.getX() +
                         vector1.getY() * vector2.getY() +

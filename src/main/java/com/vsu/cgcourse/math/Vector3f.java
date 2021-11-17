@@ -1,6 +1,6 @@
 package com.vsu.cgcourse.math;
 
-public class Vector3f{
+public class Vector3f {
 
     private double x, y, z;
 
@@ -19,7 +19,7 @@ public class Vector3f{
                 "}";
     }
 
-    public static void printVector(Vector3f vector){
+    public static void printVector(Vector3f vector) {
         System.out.println(vector.toString());
     }
 
@@ -41,14 +41,14 @@ public class Vector3f{
         return z;
     }
 
-    public static Vector3f sumVectors(final Vector3f vector1, final Vector3f vector2){
+    public static Vector3f sumVectors(final Vector3f vector1, final Vector3f vector2) {
         return new Vector3f(
                 vector1.getX() + vector2.getX(),
                 vector1.getY() + vector2.getY(),
                 vector1.getZ() + vector2.getZ());
     }
 
-    public static Vector3f subtractVectors(final Vector3f vector1, final Vector3f vector2){
+    public static Vector3f subtractVectors(final Vector3f vector1, final Vector3f vector2) {
         return new Vector3f(
                 vector1.getX() - vector2.getX(),
                 vector1.getY() - vector2.getY(),
@@ -65,9 +65,9 @@ public class Vector3f{
     public static Vector3f scalarDivision(final Vector3f vector, double scalar) throws Exception {
         if (scalar != 0) {
             return new Vector3f(
-                    vector.getX()/scalar,
-                    vector.getY()/scalar,
-                    vector.getZ()/scalar);
+                    vector.getX() / scalar,
+                    vector.getY() / scalar,
+                    vector.getZ() / scalar);
         } else throw new Exception("На ноль делить нельзя!");
     }
 
@@ -84,18 +84,18 @@ public class Vector3f{
                         vector.getY() * vector.getY() +
                         vector.getZ() * vector.getZ());
         return new Vector3f(
-                vector.getX()/length,
-                vector.getY()/length,
-                vector.getZ()/length);
+                vector.getX() / length,
+                vector.getY() / length,
+                vector.getZ() / length);
     }
 
-    public static double dotProduct(final Vector3f vector1, final Vector3f vector2){ //скалярное произведение
+    public static double dotProduct(final Vector3f vector1, final Vector3f vector2) { //скалярное произведение
         return (vector1.getX() * vector2.getX() +
                 vector1.getY() * vector2.getY() +
                 vector1.getZ() * vector2.getZ());
     }
 
-    public static Vector3f crossProduct(final Vector3f vector1, final Vector3f vector2){ //векторное произведение
+    public static Vector3f crossProduct(final Vector3f vector1, final Vector3f vector2) { //векторное произведение
         return new Vector3f(
                 vector1.getY() * vector2.getZ() - vector1.getZ() * vector2.getY(),
                 vector1.getZ() * vector2.getX() - vector1.getX() * vector2.getZ(),
