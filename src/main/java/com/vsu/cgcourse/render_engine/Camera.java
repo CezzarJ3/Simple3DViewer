@@ -1,6 +1,8 @@
 package com.vsu.cgcourse.render_engine;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Matrix4f;
+
+
+import com.vsu.cgcourse.math.Matrix4f;
+import com.vsu.cgcourse.math.Vector3f;
 
 public class Camera {
     private Vector3f position;

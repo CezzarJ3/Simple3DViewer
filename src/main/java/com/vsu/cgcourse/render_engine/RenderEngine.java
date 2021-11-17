@@ -1,9 +1,12 @@
 package com.vsu.cgcourse.render_engine;
 
 import java.util.ArrayList;
+
+import com.vsu.cgcourse.math.Matrix4f;
+import com.vsu.cgcourse.math.Vector3f;
 import javafx.scene.canvas.GraphicsContext;
-import javax.vecmath.*;
 import com.vsu.cgcourse.model.Mesh;
+
 import static com.vsu.cgcourse.render_engine.GraphicConveyor.*;
 
 public class RenderEngine {

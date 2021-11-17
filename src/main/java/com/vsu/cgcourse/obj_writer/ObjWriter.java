@@ -3,11 +3,9 @@ package com.vsu.cgcourse.obj_writer;
 import com.vsu.cgcourse.math.Vector2f;
 import com.vsu.cgcourse.math.Vector3f;
 import com.vsu.cgcourse.model.Mesh;
-import com.vsu.cgcourse.obj_writer.ObjWriterException;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 public class ObjWriter {
@@ -65,7 +63,7 @@ public class ObjWriter {
             lineInd++;
         }
         for (Vector3f vn : normals) {
-            writer.write(String.format("vn %.6f %.6f %.6f\n", vn.getX() , vn.getY(), vn.getZ()));
+            writer.write(String.format("vn %.6f %.6f %.6f\n", vn.getX(), vn.getY(), vn.getZ()));
             lineInd++;
         }
     }
