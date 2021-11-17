@@ -1,22 +1,26 @@
 package com.vsu.cgcourse.obj_writer;
 
-import com.vsu.cgcourse.obj_reader.ObjReaderException;
+import com.vsu.cgcourse.math.Vector2f;
+import com.vsu.cgcourse.math.Vector3f;
+import com.vsu.cgcourse.model.Mesh;
+import com.vsu.cgcourse.obj_writer.ObjWriterException;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 public class ObjWriter {
 
     private static int lineInd = 0;
 
-    public static void write(Model model) {
-        ArrayList<Vector3f> vertices = model.vertices;
-        ArrayList<Vector2f> textureVertices = model.textureVertices;
-        ArrayList<Vector3f> normals = model.normals;
-        ArrayList<ArrayList<Integer>> polygonVertexIndices = model.polygonVertexIndices;
-        ArrayList<ArrayList<Integer>> polygonTextureVertexIndices = model.polygonTextureVertexIndices;
-        ArrayList<ArrayList<Integer>> polygonNormalIndices = model.polygonNormalIndices;
+    public static void write(Mesh mesh) {
+        ArrayList<Vector3f> vertices = mesh.vertices;
+        ArrayList<Vector2f> textureVertices = mesh.textureVertices;
+        ArrayList<Vector3f> normals = mesh.normals;
+        ArrayList<ArrayList<Integer>> polygonVertexIndices = mesh.polygonVertexIndices;
+        ArrayList<ArrayList<Integer>> polygonTextureVertexIndices = mesh.polygonTextureVertexIndices;
+        ArrayList<ArrayList<Integer>> polygonNormalIndices = mesh.polygonNormalIndices;
 
         try (FileWriter writer = new FileWriter("MyModel.obj", false)) {
 
@@ -39,7 +43,7 @@ public class ObjWriter {
 
     private static void writeV(ArrayList<Vector3f> vertices, FileWriter writer) throws IOException {
         for (Vector3f v : vertices) {
-            writer.write(String.format("v %.6f %.6f %.6f\n", v.x, v.y, v.z));
+            writer.write(String.format("v %.6f %.6f %.6f\n", v.getX(), v.getY(), v.getZ()));
             lineInd++;
         }
     }
@@ -50,7 +54,7 @@ public class ObjWriter {
             lineInd++;
         }
         for (Vector2f vt : textureVertices) {
-            writer.write(String.format("vt %.6f %.6f\n", vt.x, vt.y));
+            writer.write(String.format("vt %.6f %.6f\n", vt.getX(), vt.getY()));
             lineInd++;
         }
     }
@@ -61,7 +65,7 @@ public class ObjWriter {
             lineInd++;
         }
         for (Vector3f vn : normals) {
-            writer.write(String.format("vn %.6f %.6f %.6f\n", vn.x, vn.y, vn.z));
+            writer.write(String.format("vn %.6f %.6f %.6f\n", vn.getX() , vn.getY(), vn.getZ()));
             lineInd++;
         }
     }
@@ -98,7 +102,7 @@ public class ObjWriter {
                         int indices = integersIndices.get(j) + 1;
                         builder.append(indices);
                     } else {
-                        throw new ObjReaderException("No vertexes", lineInd);
+                        throw new ObjWriterException("No vertexes", lineInd);
                     }
 
                     if (!integersTexture.isEmpty()) {
@@ -114,7 +118,7 @@ public class ObjWriter {
                     builder.append(" ");
 
                 } catch (IndexOutOfBoundsException e) {
-                    throw new ObjReaderException("Too few arguments.", lineInd);
+                    throw new ObjWriterException("Too few arguments.", lineInd);
                 }
             }
             writer.write(builder + "\n");
