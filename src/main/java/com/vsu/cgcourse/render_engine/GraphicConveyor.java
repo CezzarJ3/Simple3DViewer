@@ -30,7 +30,7 @@ public class GraphicConveyor {
 
         resultX.normalization();
         resultY.normalization();
-        resultZ.normalize();
+        resultZ.normalization();
 
         float[] matrix = new float[]{
                 resultX.getX(), resultY.getX(), resultZ.getX(), 0,

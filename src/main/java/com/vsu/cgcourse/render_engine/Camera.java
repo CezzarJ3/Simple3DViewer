@@ -1,6 +1,5 @@
 package com.vsu.cgcourse.render_engine;
 
-
 import com.vsu.cgcourse.math.Matrix4f;
 import com.vsu.cgcourse.math.Vector3f;
 
@@ -48,11 +47,12 @@ public class Camera {
     }
 
     public void movePosition(final Vector3f translation) {
-        this.position.add(translation);
+        this.position = Vector3f.sumVectors(this.position, translation);
     }
 
+    //??
     public void moveTarget(final Vector3f translation) {
-        this.target.add(target);
+        this.target = Vector3f.sumVectors(target, target);
     }
 
     Matrix4f getViewMatrix() {
