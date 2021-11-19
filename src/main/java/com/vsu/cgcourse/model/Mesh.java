@@ -5,8 +5,6 @@ import java.util.*;
 import com.vsu.cgcourse.math.Vector3f;
 import com.vsu.cgcourse.math.Vector2f;
 
-
-
 public class Mesh {
 
     public Mesh() {}

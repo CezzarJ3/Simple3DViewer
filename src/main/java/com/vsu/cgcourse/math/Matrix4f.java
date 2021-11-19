@@ -10,6 +10,14 @@ public class Matrix4f {
         this.vector4 = vector4;
     }
 
+    //дополнила своим
+    public Matrix4f(float[][] matrix) {
+        this.vector1 = new Vector4f(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
+        this.vector2 = new Vector4f(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
+        this.vector3 = new Vector4f(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
+        this.vector4 = new Vector4f(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+    }
+
     public Vector4f getVector1() {
         return vector1;
     }

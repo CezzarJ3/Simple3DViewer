@@ -2,9 +2,9 @@ package com.vsu.cgcourse.math;
 
 public class Vector3f {
 
-    private double x, y, z;
+    private float x, y, z;
 
-    public Vector3f(double x, double y, double z) {
+    public Vector3f(float x, float y, float z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -29,15 +29,15 @@ public class Vector3f {
         return Math.abs(x - other.x) < eps && Math.abs(y - other.y) < eps && Math.abs(z - other.z) < eps;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public double getZ() {
+    public float getZ() {
         return z;
     }
 
@@ -55,14 +55,14 @@ public class Vector3f {
                 vector1.getZ() - vector2.getZ());
     }
 
-    public static Vector3f scalarMultiplication(final Vector3f vector, double scalar) {
+    public static Vector3f scalarMultiplication(final Vector3f vector, float scalar) {
         return new Vector3f(
                 vector.getX() * scalar,
                 vector.getY() * scalar,
                 vector.getZ() * scalar);
     }
 
-    public static Vector3f scalarDivision(final Vector3f vector, double scalar) throws Exception {
+    public static Vector3f scalarDivision(final Vector3f vector, float scalar) throws Exception {
         if (scalar != 0) {
             return new Vector3f(
                     vector.getX() / scalar,
@@ -71,15 +71,15 @@ public class Vector3f {
         } else throw new Exception("На ноль делить нельзя!");
     }
 
-    public static double vectorLength(final Vector3f vector) {
-        return Math.sqrt(
+    public static float vectorLength(final Vector3f vector) {
+        return (float) Math.sqrt(
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY() +
                         vector.getZ() * vector.getZ());
     }
 
     public static Vector3f normalization(final Vector3f vector) {
-        double length = Math.sqrt(
+        float length = (float) Math.sqrt(
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY() +
                         vector.getZ() * vector.getZ());
@@ -89,7 +89,7 @@ public class Vector3f {
                 vector.getZ() / length);
     }
 
-    public static double dotProduct(final Vector3f vector1, final Vector3f vector2) { //скалярное произведение
+    public static float dotProduct(final Vector3f vector1, final Vector3f vector2) { //скалярное произведение
         return (vector1.getX() * vector2.getX() +
                 vector1.getY() * vector2.getY() +
                 vector1.getZ() * vector2.getZ());

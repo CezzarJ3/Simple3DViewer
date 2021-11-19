@@ -2,9 +2,9 @@ package com.vsu.cgcourse.math;
 
 public class Vector4f {
 
-    private double x, y, z, w;
+    private float x, y, z, w;
 
-    public Vector4f(double x, double y, double z, double w) {
+    public Vector4f(float x, float y, float z, float w) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,19 +31,19 @@ public class Vector4f {
         System.out.println(vector.toString());
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public double getZ() {
+    public float getZ() {
         return z;
     }
 
-    public double getW() {
+    public float getW() {
         return w;
     }
 
@@ -63,7 +63,7 @@ public class Vector4f {
                 vector1.getW() - vector2.getW());
     }
 
-    public static Vector4f scalarMultiplication(final Vector4f vector, double scalar) {
+    public static Vector4f scalarMultiplication(final Vector4f vector, float scalar) {
         return new Vector4f(
                 vector.getX() * scalar,
                 vector.getY() * scalar,
@@ -71,7 +71,7 @@ public class Vector4f {
                 vector.getW() * scalar);
     }
 
-    public static Vector4f scalarDivision(final Vector4f vector, double scalar) throws Exception {
+    public static Vector4f scalarDivision(final Vector4f vector, float scalar) throws Exception {
         if (scalar != 0) {
             return new Vector4f(
                     vector.getX() / scalar,
@@ -90,7 +90,7 @@ public class Vector4f {
     }
 
     public static Vector4f normalization(final Vector4f vector) {
-        double length = Math.sqrt(
+        float length = (float) Math.sqrt(
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY() +
                         vector.getZ() * vector.getZ() +
