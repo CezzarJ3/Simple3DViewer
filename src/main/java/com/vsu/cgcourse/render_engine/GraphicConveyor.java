@@ -3,6 +3,7 @@ package com.vsu.cgcourse.render_engine;
 
 import com.vsu.cgcourse.math.Matrix4f;
 import com.vsu.cgcourse.math.Vector3f;
+import com.vsu.cgcourse.math.Point2f;
 
 public class GraphicConveyor {
 

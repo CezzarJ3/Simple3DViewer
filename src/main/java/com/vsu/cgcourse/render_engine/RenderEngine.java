@@ -7,6 +7,8 @@ import com.vsu.cgcourse.math.Vector3f;
 import javafx.scene.canvas.GraphicsContext;
 import com.vsu.cgcourse.model.Mesh;
 
+import com.vsu.cgcourse.math.Point2f;
+
 import static com.vsu.cgcourse.render_engine.GraphicConveyor.*;
 
 public class RenderEngine {
