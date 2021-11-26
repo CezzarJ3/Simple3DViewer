@@ -2,6 +2,7 @@ package com.vsu.cgcourse;
 
 import com.vsu.cgcourse.math.Vector3f;
 import com.vsu.cgcourse.obj_writer.ObjWriter;
+import com.vsu.cgcourse.obj_writer.ObjWriterException;
 import javafx.fxml.FXML;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -92,25 +93,18 @@ public class GuiController {
     //todo: тут надо доделать после исправления ошибок
     @FXML
     private void onWriteModelMenuItemClick() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
-        fileChooser.setTitle("Write Model");
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
+//        fileChooser.setTitle("Write Model");
+//
+//        File file = fileChooser.showOpenDialog((Stage) canvas.getScene().getWindow());
+//        if (file == null) {
+//            return;
+//        }
 
-        File file = fileChooser.showOpenDialog((Stage) canvas.getScene().getWindow());
-        if (file == null) {
-            return;
-        }
+        ObjWriter.write(mesh);
 
-        Path fileName = Path.of(file.getAbsolutePath());
-
-        try {
-            String fileContent = Files.readString(fileName);
-            mesh = ObjReader.read(fileContent);
-            // todo: обработка ошибок
-        } catch (IOException exception) {
-
-            ObjWriter.write(mesh);
-        }
+        // todo: обработка ошибок
     }
 
     @FXML

@@ -7,6 +7,7 @@ import com.vsu.cgcourse.model.Mesh;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ObjWriter {
 
@@ -41,7 +42,7 @@ public class ObjWriter {
 
     private static void writeV(ArrayList<Vector3f> vertices, FileWriter writer) throws IOException {
         for (Vector3f v : vertices) {
-            writer.write(String.format("v %.6f %.6f %.6f\n", v.getX(), v.getY(), v.getZ()));
+            writer.write(String.format(Locale.ENGLISH, "v %.6f %.6f %.6f\n", v.getX(), v.getY(), v.getZ()));
             lineInd++;
         }
     }
@@ -52,7 +53,7 @@ public class ObjWriter {
             lineInd++;
         }
         for (Vector2f vt : textureVertices) {
-            writer.write(String.format("vt %.6f %.6f\n", vt.getX(), vt.getY()));
+            writer.write(String.format(Locale.ENGLISH, "vt %.6f %.6f\n", vt.getX(), vt.getY()));
             lineInd++;
         }
     }
@@ -63,7 +64,7 @@ public class ObjWriter {
             lineInd++;
         }
         for (Vector3f vn : normals) {
-            writer.write(String.format("vn %.6f %.6f %.6f\n", vn.getX(), vn.getY(), vn.getZ()));
+            writer.write(String.format(Locale.ENGLISH, "vn %.6f %.6f %.6f\n", vn.getX(), vn.getY(), vn.getZ()));
             lineInd++;
         }
     }
