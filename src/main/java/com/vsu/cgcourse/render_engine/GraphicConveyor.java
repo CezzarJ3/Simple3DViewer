@@ -1,6 +1,5 @@
 package com.vsu.cgcourse.render_engine;
 
-
 import com.vsu.cgcourse.math.Matrix4f;
 import com.vsu.cgcourse.math.Vector3f;
 
@@ -47,11 +46,12 @@ public class GraphicConveyor {
             final float farPlane) {
         Matrix4f result = Matrix4f.nullMatrix4f();
         float tangentMinusOnDegree = (float) (1.0F / (Math.tan(fov * 0.5F)));
-        result.m00 = tangentMinusOnDegree / aspectRatio;
-        result.m11 = tangentMinusOnDegree;
-        result.m22 = (farPlane + nearPlane) / (farPlane - nearPlane);
-        result.m23 = 1.0F;
-        result.m32 = 2 * (nearPlane * farPlane) / (nearPlane - farPlane);
+        result.getVector1().setX(tangentMinusOnDegree / aspectRatio);
+        result.getVector2().setY(tangentMinusOnDegree);
+        result.getVector3().setZ((farPlane + nearPlane) / (farPlane - nearPlane));
+        result.getVector3().setW(1.0F);
+        result.getVector4().setZ(2 * (nearPlane * farPlane) / (nearPlane - farPlane));
+
         return result;
     }
 
@@ -64,6 +64,6 @@ public class GraphicConveyor {
     }
 
     public static Point2f vertexToPoint(final Vector3f vertex, final int width, final int height) {
-        return new Point2f(vertex.x * width + width / 2.0F, -vertex.y * height + height / 2.0F);
+        return new Point2f(vertex.getX() * width + width / 2.0F, -vertex.getY() * height + height / 2.0F);
     }
 }
