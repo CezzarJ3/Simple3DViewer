@@ -47,6 +47,22 @@ public class Vector4f {
         return w;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
+    public void setW(float w) {
+        this.w = w;
+    }
+
     public static Vector4f sumVectors(final Vector4f vector1, final Vector4f vector2) {
         return new Vector4f(
                 vector1.getX() + vector2.getX(),
