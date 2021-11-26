@@ -1,7 +1,7 @@
 package com.vsu.cgcourse.math;
 
 public class Point2f {
-    public float x, y;
+    private float x, y;
 
     public Point2f(float x, float y) {
         this.x = x;
