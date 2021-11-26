@@ -103,8 +103,14 @@ public class GuiController {
 
         Path fileName = Path.of(file.getAbsolutePath());
 
-        ObjWriter.write(mesh);
-        // todo: обработка ошибок
+        try {
+            String fileContent = Files.readString(fileName);
+            mesh = ObjReader.read(fileContent);
+            // todo: обработка ошибок
+        } catch (IOException exception) {
+
+            ObjWriter.write(mesh);
+        }
     }
 
     @FXML

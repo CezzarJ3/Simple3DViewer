@@ -2,9 +2,9 @@ package com.vsu.cgcourse.math;
 
 public class Vector2f {
 
-    private double x, y;
+    private float x, y;
 
-    public Vector2f(double x, double y) {
+    public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -19,15 +19,15 @@ public class Vector2f {
 
     public boolean equals(Vector2f other) {
         // todo: потом это будет глобальная константа
-        final double eps = 1e-7;
+        final float eps = (float) 1e-7;
         return Math.abs(x - other.x) < eps && Math.abs(y - other.y) < eps;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
@@ -47,13 +47,13 @@ public class Vector2f {
                 vector1.getY() - vector2.getY());
     }
 
-    public static Vector2f scalarMultiplication(final Vector2f vector, double scalar) {
+    public static Vector2f scalarMultiplication(final Vector2f vector, float scalar) {
         return new Vector2f(
                 vector.getX() * scalar,
                 vector.getY() * scalar);
     }
 
-    public static Vector2f scalarDivision(final Vector2f vector, double scalar) throws Exception {
+    public static Vector2f scalarDivision(final Vector2f vector, float scalar) throws Exception {
         if (scalar != 0) {
             return new Vector2f(
                     vector.getX() / scalar,
@@ -68,7 +68,7 @@ public class Vector2f {
     }
 
     public static Vector2f normalization(final Vector2f vector) {
-        double length = Math.sqrt(
+        float length = (float) Math.sqrt(
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY());
         return new Vector2f(
