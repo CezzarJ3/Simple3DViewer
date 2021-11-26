@@ -16,15 +16,15 @@ public class RenderEngine {
             final Camera camera,
             final Mesh mesh,
             final int width,
-            final int height)
-    {
+            final int height) {
         Matrix4f modelMatrix = rotateScaleTranslate();
         Matrix4f viewMatrix = camera.getViewMatrix();
         Matrix4f projectionMatrix = camera.getProjectionMatrix();
 
         Matrix4f modelViewProjectionMatrix = modelMatrix;
-        modelViewProjectionMatrix.mul(viewMatrix);
-        modelViewProjectionMatrix.mul(projectionMatrix);
+
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, viewMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, projectionMatrix);
 
         final int nPolygons = mesh.polygonVertexIndices.size();
         for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {

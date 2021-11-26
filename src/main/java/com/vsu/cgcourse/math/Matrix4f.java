@@ -130,4 +130,64 @@ public class Matrix4f {
                         matrix.getVector4().getW() * vector.getW()
         );
     }
+
+    public static Matrix4f multiplicationByAMatrix(Matrix4f matrix, Matrix4f factor) {
+        Vector4f vector1 = new Vector4f(
+                factor.getVector1().getX(),
+                factor.getVector2().getX(),
+                factor.getVector3().getX(),
+                factor.getVector4().getX()
+        );
+
+        Vector4f vector2 = new Vector4f(
+                factor.getVector1().getY(),
+                factor.getVector2().getY(),
+                factor.getVector3().getY(),
+                factor.getVector4().getY()
+        );
+
+        Vector4f vector3 = new Vector4f(
+                factor.getVector1().getZ(),
+                factor.getVector2().getZ(),
+                factor.getVector3().getZ(),
+                factor.getVector4().getZ()
+        );
+
+        Vector4f vector4 = new Vector4f(
+                factor.getVector1().getW(),
+                factor.getVector2().getW(),
+                factor.getVector3().getW(),
+                factor.getVector4().getW()
+        );
+
+        Vector4f vectorResult1 = new Vector4f(
+                Vector4f.dotProduct(matrix.getVector1(), vector1),
+                Vector4f.dotProduct(matrix.getVector1(), vector2),
+                Vector4f.dotProduct(matrix.getVector1(), vector3),
+                Vector4f.dotProduct(matrix.getVector1(), vector4)
+        );
+
+        Vector4f vectorResult2 = new Vector4f(
+                Vector4f.dotProduct(matrix.getVector2(), vector1),
+                Vector4f.dotProduct(matrix.getVector2(), vector2),
+                Vector4f.dotProduct(matrix.getVector2(), vector3),
+                Vector4f.dotProduct(matrix.getVector2(), vector4)
+        );
+
+        Vector4f vectorResult3 = new Vector4f(
+                Vector4f.dotProduct(matrix.getVector3(), vector1),
+                Vector4f.dotProduct(matrix.getVector3(), vector2),
+                Vector4f.dotProduct(matrix.getVector3(), vector3),
+                Vector4f.dotProduct(matrix.getVector3(), vector4)
+        );
+
+        Vector4f vectorResult4 = new Vector4f(
+                Vector4f.dotProduct(matrix.getVector4(), vector1),
+                Vector4f.dotProduct(matrix.getVector4(), vector2),
+                Vector4f.dotProduct(matrix.getVector4(), vector3),
+                Vector4f.dotProduct(matrix.getVector4(), vector4)
+        );
+
+        return new Matrix4f(vectorResult1, vectorResult2, vectorResult3, vectorResult4);
+    }
 }

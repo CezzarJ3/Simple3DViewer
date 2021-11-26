@@ -81,8 +81,8 @@ public class Vector4f {
         } else throw new Exception("На ноль делить нельзя!");
     }
 
-    public static double vectorLength(final Vector4f vector) {
-        return Math.sqrt(
+    public static float vectorLength(final Vector4f vector) {
+        return (float) Math.sqrt(
                 vector.getX() * vector.getX() +
                         vector.getY() * vector.getY() +
                         vector.getZ() * vector.getZ() +
@@ -102,7 +102,7 @@ public class Vector4f {
                 vector.getW() / length);
     }
 
-    public static double dotProduct(final Vector4f vector1, final Vector4f vector2) { //скалярное произведение
+    public static float dotProduct(final Vector4f vector1, final Vector4f vector2) { //скалярное произведение
         return (
                 vector1.getX() * vector2.getX() +
                         vector1.getY() * vector2.getY() +
