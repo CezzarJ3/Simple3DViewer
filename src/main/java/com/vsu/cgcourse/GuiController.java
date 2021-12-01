@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -80,31 +81,40 @@ public class GuiController {
         }
 
         Path fileName = Path.of(file.getAbsolutePath());
-
         try {
             String fileContent = Files.readString(fileName);
             mesh = ObjReader.read(fileContent);
-            // todo: обработка ошибок
-        } catch (IOException exception) {
 
+            // todo: обработка ошибок (готово?)
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка чтения!");
+            alert.setContentText("\tПроизошла ошибка чтения модели!\n" + exception.getMessage());
+            alert.showAndWait();
         }
     }
 
     //todo: тут надо доделать после исправления ошибок
     @FXML
     private void onWriteModelMenuItemClick() {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
-//        fileChooser.setTitle("Write Model");
-//
-//        File file = fileChooser.showOpenDialog((Stage) canvas.getScene().getWindow());
-//        if (file == null) {
-//            return;
-//        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
+        fileChooser.setTitle("Write Model");
 
-        ObjWriter.write(mesh);
+        File file = fileChooser.showSaveDialog((Stage) canvas.getScene().getWindow());
+        try {
+            String filename = file.getAbsolutePath();
+            System.out.println(filename);
+            ObjWriter.write(mesh, filename);
 
-        // todo: обработка ошибок
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка записи!");
+            alert.setContentText("\tПроизошла ошибка записи!\n" + e.getMessage());
+            alert.showAndWait();
+        }
+
+        // todo: обработка ошибок (выполнена?)
     }
 
     @FXML

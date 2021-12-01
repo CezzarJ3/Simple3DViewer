@@ -13,7 +13,7 @@ public class ObjWriter {
 
     private static int lineInd = 0;
 
-    public static void write(Mesh mesh) {
+    public static void write(Mesh mesh, String filename) {
         ArrayList<Vector3f> vertices = mesh.vertices;
         ArrayList<Vector2f> textureVertices = mesh.textureVertices;
         ArrayList<Vector3f> normals = mesh.normals;
@@ -21,7 +21,7 @@ public class ObjWriter {
         ArrayList<ArrayList<Integer>> polygonTextureVertexIndices = mesh.polygonTextureVertexIndices;
         ArrayList<ArrayList<Integer>> polygonNormalIndices = mesh.polygonNormalIndices;
 
-        try (FileWriter writer = new FileWriter("MyModel.obj", false)) {
+        try (FileWriter writer = new FileWriter(filename, false)) {
 
             writeV(vertices, writer);
             writeVt(textureVertices, writer);
