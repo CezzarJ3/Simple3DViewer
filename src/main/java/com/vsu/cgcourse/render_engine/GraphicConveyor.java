@@ -6,6 +6,7 @@ import com.vsu.cgcourse.math.Point2f;
 
 public class GraphicConveyor {
 
+    //todo реализовать матрицу модели M=TRS
     public static Matrix4f rotateScaleTranslate() {
         float[][] matrix = new float[][]{
                 {1, 0, 0, 0},
@@ -15,6 +16,7 @@ public class GraphicConveyor {
         return new Matrix4f(matrix);
     }
 
+    //todo заметка отвечает за матрицу view eye - origin, target - target
     public static Matrix4f lookAt(Vector3f eye, Vector3f target) {
         return lookAt(eye, target, new Vector3f(0F, 1.0F, 0F));
     }
@@ -24,6 +26,7 @@ public class GraphicConveyor {
         Vector3f resultY;
         Vector3f resultZ;
 
+        //todo заметка получение координат камеры
         resultZ = Vector3f.subtractVectors(target, eye);
         resultX = Vector3f.crossProduct(up, resultZ);
         resultY = Vector3f.crossProduct(resultZ, resultX);
@@ -32,6 +35,7 @@ public class GraphicConveyor {
         resultY = Vector3f.normalization(resultY);
         resultZ = Vector3f.normalization(resultZ);
 
+        //todo заметка перемещение в начало координат+проецирование это матрица view из двух этапов
         float[][] matrix = new float[][]{
                 {resultX.getX(), resultY.getX(), resultZ.getX(), 0},
                 {resultX.getY(), resultY.getY(), resultZ.getY(), 0},
@@ -40,6 +44,7 @@ public class GraphicConveyor {
         return new Matrix4f(matrix);
     }
 
+    //todo заметка матрица проекции
     public static Matrix4f perspective(
             final float fov,
             final float aspectRatio,
