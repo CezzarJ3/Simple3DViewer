@@ -25,8 +25,8 @@ public class RenderEngine {
 
         Matrix4f modelViewProjectionMatrix = modelMatrix;
 
-        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(viewMatrix, modelViewProjectionMatrix);
-        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(projectionMatrix, modelViewProjectionMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, viewMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, projectionMatrix);
 
         final int nPolygons = mesh.polygonVertexIndices.size();
         for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {

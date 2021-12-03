@@ -1,8 +1,8 @@
 package com.vsu.cgcourse.render_engine;
 
 import com.vsu.cgcourse.math.Matrix4f;
-import com.vsu.cgcourse.math.Point2f;
 import com.vsu.cgcourse.math.Vector3f;
+import com.vsu.cgcourse.math.Point2f;
 
 public class GraphicConveyor {
 
@@ -14,43 +14,6 @@ public class GraphicConveyor {
                 {0, 0, 1, 0},
                 {0, 0, 0, 1}};
         return new Matrix4f(matrix);
-    }
-
-    //*new
-    public static Matrix4f scaleMatrix(float sx, float sy, float sz) {
-        float[][] scale = new float[][]{
-                {sx, 0, 0},
-                {0, sy, 0},
-                {0, 0, sz}
-        };
-        return new Matrix4f(scale);
-    }
-
-    public static Matrix4f rotateMatrixZ(float a) {
-        float[][] rotateZ = new float[][]{
-                {(float) Math.cos(a), (float) Math.sin(a), 0},
-                {(float) -Math.sin(a), (float) Math.cos(a), 0},
-                {0, 0, 1}
-        };
-        return new Matrix4f(rotateZ);
-    }
-
-    public static Matrix4f rotateMatrixX(float a) {
-        float[][] rotateZ = new float[][]{
-                {1, 0, 0},
-                {0, (float) Math.cos(a), (float) Math.sin(a)},
-                {0, (float) -Math.sin(a), (float) Math.cos(a)}
-        };
-        return new Matrix4f(rotateZ);
-    }
-
-    public static Matrix4f rotateMatrixY(float a) {
-        float[][] rotateZ = new float[][]{
-                {(float) Math.cos(a), 0, (float) Math.sin(a)},
-                {0, 1, 0},
-                {(float) -Math.sin(a), 0, (float) Math.cos(a)},
-        };
-        return new Matrix4f(rotateZ);
     }
 
     //todo заметка отвечает за матрицу view eye - origin, target - target
@@ -72,20 +35,13 @@ public class GraphicConveyor {
         resultY = Vector3f.normalization(resultY);
         resultZ = Vector3f.normalization(resultZ);
 
-        //todo заметка перемещение в начало координат+проецирование это матрица view из двух этапов, надо транспонировать
+        //todo заметка перемещение в начало координат+проецирование это матрица view из двух этапов
         float[][] matrix = new float[][]{
                 {resultX.getX(), resultY.getX(), resultZ.getX(), 0},
                 {resultX.getY(), resultY.getY(), resultZ.getY(), 0},
                 {resultX.getZ(), resultY.getZ(), resultZ.getZ(), 0},
                 {-Vector3f.dotProduct(resultX, eye), -Vector3f.dotProduct(resultY, eye), -Vector3f.dotProduct(resultZ, eye), 1}};
-
-        float[][] res = new float[][]{
-                {resultX.getX(), resultX.getY(), resultX.getZ(), -Vector3f.dotProduct(resultX, eye)},
-                {resultY.getX(), resultY.getY(), resultY.getZ(), -Vector3f.dotProduct(resultY, eye)},
-                {resultZ.getX(), resultZ.getY(), resultZ.getZ(), -Vector3f.dotProduct(resultZ, eye)},
-                {0, 0, 0, 1}
-        };
-        return new Matrix4f(res);
+        return new Matrix4f(matrix);
     }
 
     //todo заметка матрица проекции
@@ -96,11 +52,11 @@ public class GraphicConveyor {
             final float farPlane) {
         Matrix4f result = Matrix4f.nullMatrix4f();
         float tangentMinusOnDegree = (float) (1.0F / (Math.tan(fov * 0.5F)));
-        result.getVector1().setX(tangentMinusOnDegree);
-        result.getVector2().setY(tangentMinusOnDegree / aspectRatio);
+        result.getVector1().setX(tangentMinusOnDegree / aspectRatio);
+        result.getVector2().setY(tangentMinusOnDegree);
         result.getVector3().setZ((farPlane + nearPlane) / (farPlane - nearPlane));
-        result.getVector3().setW(2 * (nearPlane * farPlane) / (nearPlane - farPlane));
-        result.getVector4().setZ(1.0F);
+        result.getVector3().setW(1.0F);
+        result.getVector4().setZ(2 * (nearPlane * farPlane) / (nearPlane - farPlane));
 
         return result;
     }
