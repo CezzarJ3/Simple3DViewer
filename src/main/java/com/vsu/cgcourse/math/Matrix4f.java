@@ -39,13 +39,22 @@ public class Matrix4f {
         return vector1.equals(other.getVector1()) && vector2.equals(other.getVector2()) && vector3.equals(other.getVector3()) && vector4.equals(other.getVector4());
     }
 
+//    @Override
+//    public String toString() {
+//        return "Matrix4f" + "\n" +
+//                '{' + vector1.getX() + " " + vector2.getX() + " " + vector3.getX() + " " + vector4.getX() + '}' + "\n" +
+//                '{' + vector1.getY() + " " + vector2.getY() + " " + vector3.getY() + " " + vector4.getY() + '}' + "\n" +
+//                '{' + vector1.getZ() + " " + vector2.getZ() + " " + vector3.getZ() + " " + vector4.getZ() + '}' + "\n" +
+//                '{' + vector1.getW() + " " + vector2.getW() + " " + vector3.getW() + " " + vector4.getW() + '}';
+//    }
+
     @Override
     public String toString() {
         return "Matrix4f" + "\n" +
-                '{' + vector1.getX() + " " + vector2.getX() + " " + vector3.getX() + " " + vector4.getX() + '}' + "\n" +
-                '{' + vector1.getY() + " " + vector2.getY() + " " + vector3.getY() + " " + vector4.getY() + '}' + "\n" +
-                '{' + vector1.getZ() + " " + vector2.getZ() + " " + vector3.getZ() + " " + vector4.getZ() + '}' + "\n" +
-                '{' + vector1.getW() + " " + vector2.getW() + " " + vector3.getW() + " " + vector4.getW() + '}';
+                '{' + vector1.getX() + " " + vector1.getY() + " " + vector1.getZ() + " " + vector1.getW() + '}' + "\n" +
+                '{' + vector2.getX() + " " + vector2.getY() + " " + vector2.getZ() + " " + vector2.getW() + '}' + "\n" +
+                '{' + vector3.getX() + " " + vector3.getY() + " " + vector3.getZ() + " " + vector3.getW() + '}' + "\n" +
+                '{' + vector4.getX() + " " + vector4.getY() + " " + vector4.getZ() + " " + vector4.getW() + '}';
     }
 
     public static void printMatrix(Matrix4f matrix) {
@@ -131,6 +140,9 @@ public class Matrix4f {
         );
     }
 
+    /**
+     * первая - слева, вторая - справа
+     */
     public static Matrix4f multiplicationByAMatrix(Matrix4f matrix, Matrix4f factor) {
         Vector4f vector1 = new Vector4f(
                 factor.getVector1().getX(),
