@@ -8,7 +8,7 @@ public class GraphicConveyor {
 
     //todo реализовать матрицу модели M=TRS
 
-    public static Matrix4f rotateScaleTranslate(float sx, float sy, float sz, float rx, float ry, float rz) {
+    public static Matrix4f rotateScaleTranslate(float sx, float sy, float sz, float rx, float ry, float rz, float tx, float ty, float tz) {
         float[][] matrix = new float[][]{
                 {1, 0, 0, 0},
                 {0, 1, 0, 0},
@@ -19,7 +19,7 @@ public class GraphicConveyor {
         Matrix4f rotateMatrixX = rotateMatrixX(rx);
         Matrix4f rotateMatrixY = rotateMatrixY(ry);
         Matrix4f rotateMatrixZ = rotateMatrixZ(rz);
-        Matrix4f translateMatrix = translateMatrix(1, 1, 1);
+        Matrix4f translateMatrix = translateMatrix(tx, ty, tz);
 
         Matrix4f rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixY, rotateMatrixX);
         rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixZ, rotateMatrix);

@@ -24,8 +24,11 @@ public class RenderEngine {
             final float sz,
             final float rx,
             final float ry,
-            final float rz) {
-        Matrix4f modelMatrix = rotateScaleTranslate(sx, sy, sz, rx, ry, rz);
+            final float rz,
+            final float tx,
+            final float ty,
+            final float tz) {
+        Matrix4f modelMatrix = rotateScaleTranslate(sx, sy, sz, rx, ry, rz, tx, ty, tz);
         Matrix4f viewMatrix = camera.getViewMatrix();
         Matrix4f projectionMatrix = camera.getProjectionMatrix();
 

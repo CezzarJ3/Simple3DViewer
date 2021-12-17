@@ -9,10 +9,9 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Slider;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -21,7 +20,6 @@ import javafx.util.Duration;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.File;
-
 
 import com.vsu.cgcourse.model.Mesh;
 import com.vsu.cgcourse.obj_reader.ObjReader;
@@ -32,17 +30,15 @@ public class GuiController {
 
     final private float TRANSLATION = 5.0F;
     @FXML
-    public Slider changeX;
-    @FXML
-    public Slider changeY;
-    @FXML
-    public Slider changeZ;
-    @FXML
     public TextField changeScaleX, changeScaleY, changeScaleZ;
+    @FXML
+    public Button resetButton;
 
-    private float sx = 1, sy = 1, sz = 1, rx = 0, ry = 0, rz = 0;
+    private float sx = 1, sy = 1, sz = 1, rx = 180, ry = 0, rz = 0, tx = 0, ty = 0, tz = 0;
 
-    private float positionX = 0, positionY = 0;
+    private float positionPrimaryButtonX = 0, positionPrimaryButtonY = 0,
+            positionSecondaryButtonX = 0, positionSecondaryButtonY = 0,
+            positionPrimaryControlX = 0;
 
     @FXML
     AnchorPane anchorPane;
@@ -79,7 +75,7 @@ public class GuiController {
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height, sx, sy, sz, rx, ry, rz);
+                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height, sx, sy, sz, rx, ry, rz, tx, ty, tz);
             }
         });
 
@@ -205,26 +201,84 @@ public class GuiController {
 
     @FXML
     public void handlerStartDrag(MouseDragEvent mouseDragEvent) {
-        positionX = (float) mouseDragEvent.getX();
-        positionY = (float) mouseDragEvent.getY();
+        if (mouseDragEvent.isPrimaryButtonDown()) {
+            positionPrimaryButtonX = (float) mouseDragEvent.getX();
+            positionPrimaryButtonY = (float) mouseDragEvent.getY();
+        } else if (mouseDragEvent.isSecondaryButtonDown()) {
+            positionSecondaryButtonX = (float) mouseDragEvent.getX();
+            positionSecondaryButtonY = (float) mouseDragEvent.getY();
+        }
     }
 
     @FXML
-    public void handlerRotateModel(MouseEvent mouseEvent) {
-        if (mouseEvent.getX() - positionX > 10) {
-            ry++;
-            positionX = (float) mouseEvent.getX();
-        } else if (mouseEvent.getX() - positionX < -10) {
-            ry--;
-            positionX = (float) mouseEvent.getX();
+    public void handlerRotateAndTranslateModel(MouseEvent mouseEvent) {
+        if (mouseEvent.isPrimaryButtonDown()) {
+            if (mouseEvent.getX() - positionPrimaryButtonX > 10) {
+                ry++;
+                positionPrimaryButtonX = (float) mouseEvent.getX();
+            } else if (mouseEvent.getX() - positionPrimaryButtonX < -10) {
+                ry--;
+                positionPrimaryButtonX = (float) mouseEvent.getX();
+            }
+            if (mouseEvent.getY() - positionPrimaryButtonY > 10) {
+                rx++;
+                positionPrimaryButtonY = (float) mouseEvent.getY();
+            } else if (mouseEvent.getY() - positionPrimaryButtonY < -10) {
+                rx--;
+                positionPrimaryButtonY = (float) mouseEvent.getY();
+            }
         }
-        if (mouseEvent.getY() - positionY > 10) {
-            rx++;
-            positionY = (float) mouseEvent.getY();
-        } else if (mouseEvent.getY() - positionY < -10) {
-            rx--;
-            positionY = (float) mouseEvent.getY();
+        if (mouseEvent.isSecondaryButtonDown()) {
+            if (mouseEvent.getX() - positionSecondaryButtonX > 10) {
+                tx += 0.5;
+                positionSecondaryButtonX = (float) mouseEvent.getX();
+            } else if (mouseEvent.getX() - positionSecondaryButtonX < -10) {
+                tx -= 0.5;
+                positionSecondaryButtonX = (float) mouseEvent.getX();
+            }
+            if (mouseEvent.getY() - positionSecondaryButtonY > 10) {
+                ty += 0.5;
+                positionSecondaryButtonY = (float) mouseEvent.getY();
+            } else if (mouseEvent.getY() - positionSecondaryButtonY < -10) {
+                ty -= 0.5;
+                positionSecondaryButtonY = (float) mouseEvent.getY();
+            }
+        }
+        if (mouseEvent.isControlDown() && mouseEvent.isPrimaryButtonDown()) {
+            if (mouseEvent.getX() - positionPrimaryControlX > 10) {
+                rz++;
+                positionPrimaryControlX = (float) mouseEvent.getX();
+            } else if (mouseEvent.getX() - positionPrimaryControlX < -10) {
+                rz--;
+                positionPrimaryControlX = (float) mouseEvent.getX();
+            }
         }
     }
 
+    @FXML
+    public void handlerTranslateAlongZ(ScrollEvent scrollEvent) {
+        if (scrollEvent.getDeltaY() > 0) {
+            tz += 30;
+        } else {
+            tz -= 30;
+        }
+    }
+
+    @FXML
+    public void handlerResetValues(ActionEvent actionEvent) {
+        sx = 1;
+        sy = 1;
+        sz = 1;
+        rx = 180;
+        ry = 0;
+        rz = 0;
+        tx = 0;
+        ty = 0;
+        tz = 0;
+        positionPrimaryButtonX = 0;
+        positionPrimaryButtonY = 0;
+        positionSecondaryButtonX = 0;
+        positionSecondaryButtonY = 0;
+        positionPrimaryControlX = 0;
+    }
 }

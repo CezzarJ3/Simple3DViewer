@@ -75,6 +75,7 @@
                onMouseClicked="#focusChangeScaleForY" onAction="#changeScaleForY" viewOrder="1"/>
     <TextField fx:id="changeScaleZ" prefWidth="40.0" layoutX="55.0" layoutY="120.0" onMouseClicked="#forChangeScaleForZ"
                onAction="#changeScaleForZ" viewOrder="1"/>
+    <Button fx:id="resetButton" prefWidth="80" layoutX="40.0" layoutY="160.0" text="Reset" onAction="#handlerResetValues"/>
     <Canvas fx:id="canvas" width="1600" height="870" AnchorPane.topAnchor="30.0" onMouseClicked="#focusCanvas"
-            viewOrder="10" onMouseDragged="#handlerRotateModel" onMouseDragEntered="#handlerStartDrag"/>
+            viewOrder="10" onMouseDragged="#handlerRotateAndTranslateModel" onMouseDragEntered="#handlerStartDrag" onScroll="#handlerTranslateAlongZ"/>
 </AnchorPane>
