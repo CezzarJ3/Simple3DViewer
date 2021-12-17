@@ -18,18 +18,24 @@ public class RenderEngine {
             final Camera camera,
             final Mesh mesh,
             final int width,
-            final int height) {
-        Matrix4f modelMatrix = rotateScaleTranslate();
+            final int height,
+            final float sx,
+            final float sy,
+            final float sz,
+            final float rx,
+            final float ry,
+            final float rz) {
+        Matrix4f modelMatrix = rotateScaleTranslate(sx, sy, sz, rx, ry, rz);
         Matrix4f viewMatrix = camera.getViewMatrix();
         Matrix4f projectionMatrix = camera.getProjectionMatrix();
 
         Matrix4f modelViewProjectionMatrix = modelMatrix;
 
 //        System.out.println("ModelM " + modelViewProjectionMatrix);
-        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, viewMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(viewMatrix, modelViewProjectionMatrix);
 //        System.out.println("ModelViewMatrix " + viewMatrix);
 //        System.out.println("ModelV " + modelViewProjectionMatrix);
-        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(modelViewProjectionMatrix, projectionMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(projectionMatrix, modelViewProjectionMatrix);
 //        System.out.println("ModelProjection " + projectionMatrix);
 //        System.out.println("ModelP " + modelViewProjectionMatrix);
 
@@ -40,7 +46,7 @@ public class RenderEngine {
             ArrayList<Point2f> resultPoints = new ArrayList<>();
             for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 Vector3f vertex = mesh.vertices.get(mesh.polygonVertexIndices.get(polygonInd).get(vertexInPolygonInd));
-                Point2f resultPoint = vertexToPoint(multiplyMatrix4ByVector3(modelViewProjectionMatrix, vertex), width, height);
+                Point2f resultPoint = vertexToPoint(Matrix4f.multiplicationByVector3f(modelViewProjectionMatrix, vertex), width, height);
                 resultPoints.add(resultPoint);
             }
 

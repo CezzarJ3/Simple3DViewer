@@ -274,4 +274,11 @@ public class Matrix4f {
 //
 //        return new Matrix4f(vectorResult1, vectorResult2, vectorResult3, vectorResult4);
 //    }
+
+    public static Vector3f multiplicationByVector3f(Matrix4f matrix, Vector3f vector3f) {
+        Vector4f vector = new Vector4f(vector3f.getX(), vector3f.getY(), vector3f.getZ(), 1);
+        Vector4f result = multiplicationByAColumnVector(matrix, vector);
+
+        return new Vector3f(result.getX() / result.getW(), result.getY() / result.getW(), result.getZ() / result.getW());
+    }
 }

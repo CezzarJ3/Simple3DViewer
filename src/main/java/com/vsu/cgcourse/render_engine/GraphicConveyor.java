@@ -8,31 +8,31 @@ public class GraphicConveyor {
 
     //todo реализовать матрицу модели M=TRS
 
-    public static Matrix4f rotateScaleTranslate() {
+    public static Matrix4f rotateScaleTranslate(float sx, float sy, float sz, float rx, float ry, float rz) {
         float[][] matrix = new float[][]{
                 {1, 0, 0, 0},
                 {0, 1, 0, 0},
                 {0, 0, 1, 0},
                 {0, 0, 0, 1}};
 
-        Matrix4f scaleMatrix = scaleMatrix(1, 1, 1);
-        Matrix4f rotateMatrixX = rotateMatrixX(45);
-        Matrix4f rotateMatrixY = rotateMatrixY(45);
-        Matrix4f rotateMatrixZ = rotateMatrixZ(45);
+        Matrix4f scaleMatrix = scaleMatrix(sx, sy, sz);
+        Matrix4f rotateMatrixX = rotateMatrixX(rx);
+        Matrix4f rotateMatrixY = rotateMatrixY(ry);
+        Matrix4f rotateMatrixZ = rotateMatrixZ(rz);
         Matrix4f translateMatrix = translateMatrix(1, 1, 1);
 
-//        Matrix4f rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixY, rotateMatrixX);
-//        rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixZ, rotateMatrix);
+        Matrix4f rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixY, rotateMatrixX);
+        rotateMatrix = Matrix4f.multiplicationByAMatrix(rotateMatrixZ, rotateMatrix);
 
-//        Matrix4f result = Matrix4f.multiplicationByAMatrix(rotateMatrix, scaleMatrix);
+        Matrix4f result = Matrix4f.multiplicationByAMatrix(rotateMatrix, scaleMatrix);
 
 //        System.out.println(result);
 //        System.out.println(translateMatrix);
-        Matrix4f result = Matrix4f.multiplicationByAMatrix(translateMatrix, scaleMatrix);
+        result = Matrix4f.multiplicationByAMatrix(translateMatrix, result);
 //        System.out.println(result);
 //        System.out.println("---");
 
-        return translateMatrix;
+        return result;
     }
 
     public static Matrix4f scaleMatrix(float sx, float sy, float sz) {
@@ -100,18 +100,18 @@ public class GraphicConveyor {
         resultZ = Vector3f.normalization(resultZ);
 
         //todo заметка перемещение в начало координат+проецирование это матрица view из двух этапов
-        float[][] matrix = new float[][]{
-                {resultX.getX(), resultY.getX(), resultZ.getX(), 0},
-                {resultX.getY(), resultY.getY(), resultZ.getY(), 0},
-                {resultX.getZ(), resultY.getZ(), resultZ.getZ(), 0},
-                {-Vector3f.dotProduct(resultX, eye), -Vector3f.dotProduct(resultY, eye), -Vector3f.dotProduct(resultZ, eye), 1}};
-
 //        float[][] matrix = new float[][]{
-//                {resultX.getX(), resultX.getY(), resultX.getZ(), -Vector3f.dotProduct(resultX, eye)},
-//                {resultY.getX(), resultY.getY(), resultY.getZ(), -Vector3f.dotProduct(resultY, eye)},
-//                {resultZ.getX(), resultZ.getY(), resultZ.getZ(), -Vector3f.dotProduct(resultZ, eye)},
-//                {0, 0, 0, 1}
-//        };
+//                {resultX.getX(), resultY.getX(), resultZ.getX(), 0},
+//                {resultX.getY(), resultY.getY(), resultZ.getY(), 0},
+//                {resultX.getZ(), resultY.getZ(), resultZ.getZ(), 0},
+//                {-Vector3f.dotProduct(resultX, eye), -Vector3f.dotProduct(resultY, eye), -Vector3f.dotProduct(resultZ, eye), 1}};
+
+        float[][] matrix = new float[][]{
+                {resultX.getX(), resultX.getY(), resultX.getZ(), -Vector3f.dotProduct(resultX, eye)},
+                {resultY.getX(), resultY.getY(), resultY.getZ(), -Vector3f.dotProduct(resultY, eye)},
+                {resultZ.getX(), resultZ.getY(), resultZ.getZ(), -Vector3f.dotProduct(resultZ, eye)},
+                {0, 0, 0, 1}
+        };
 
 //        float[][] matrix = new float[][]{
 //                {resultX.getX(), resultX.getY(), resultX.getZ(), 0},
