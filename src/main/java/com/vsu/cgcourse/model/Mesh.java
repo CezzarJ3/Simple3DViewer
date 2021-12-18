@@ -16,6 +16,8 @@ public class Mesh {
     public ArrayList<ArrayList<Integer>> polygonVertexIndices = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> polygonTextureVertexIndices = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> polygonNormalIndices = new ArrayList<>();
+
+
 }
 
 
