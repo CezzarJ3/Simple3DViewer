@@ -8,11 +8,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -32,7 +31,14 @@ public class GuiController {
     @FXML
     public TextField changeScaleX, changeScaleY, changeScaleZ;
     @FXML
-    public Button resetButton;
+    public Button resetButton, darkThemeButton;
+    @FXML
+    public Label labelScaleX, labelScaleY, labelScaleZ;
+    @FXML
+    public Menu darkFile, darkCameraOptions;
+    @FXML
+    public MenuBar darkMenuBar;
+
 
     private float sx = 1, sy = 1, sz = 1, rx = 180, ry = 0, rz = 0, tx = 0, ty = 0, tz = 0;
 
@@ -280,5 +286,63 @@ public class GuiController {
         positionSecondaryButtonX = 0;
         positionSecondaryButtonY = 0;
         positionPrimaryControlX = 0;
+    }
+
+
+    @FXML
+    public void changeTheme(MouseEvent mouseEvent) {
+       if(mouseEvent.isPrimaryButtonDown()){
+           anchorPane.setStyle("-fx-background-color: black");
+           darkFile.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
+           darkCameraOptions.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
+           canvas.getGraphicsContext2D().setStroke(Color.DODGERBLUE);
+           darkMenuBar.setStyle("-fx-background-color: #6B6B6B;");
+
+           labelScaleX.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+           labelScaleY.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+           labelScaleZ.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+
+           changeScaleX.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
+           changeScaleY.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
+           changeScaleZ.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
+
+           resetButton.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white");
+           darkThemeButton.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white");
+
+           resetButton.setOnMouseEntered(event -> { //темная тема
+               resetButton.setStyle("-fx-background-color: #25a0dc; -fx-text-fill: white"); //когда наводишь курсор
+           });
+           resetButton.setOnMouseExited(event -> resetButton.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white"));
+
+            darkThemeButton.setOnMouseEntered(event -> {
+               darkThemeButton.setStyle("-fx-background-color: #25a0dc; -fx-text-fill: white"); //когда наводишь курсор
+            });
+            darkThemeButton.setOnMouseExited(event -> darkThemeButton.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white"));
+       }
+
+        if(mouseEvent.isSecondaryButtonDown()){ //исходная тема
+            anchorPane.setStyle(null);
+            darkFile.setStyle(null);
+            darkCameraOptions.setStyle(null);
+            canvas.getGraphicsContext2D().setStroke(Color.BLACK);
+            darkMenuBar.setStyle(null);
+
+            labelScaleX.setStyle(null);
+            labelScaleY.setStyle(null);
+            labelScaleZ.setStyle(null);
+
+            changeScaleX.setStyle(null);
+            changeScaleY.setStyle(null);
+            changeScaleZ.setStyle(null);
+
+            resetButton.setStyle(null);
+            darkThemeButton.setStyle(null);
+
+            resetButton.setOnMouseEntered(event -> resetButton.setStyle(""));
+            resetButton.setOnMouseExited(event -> resetButton.setStyle(""));
+
+            darkThemeButton.setOnMouseEntered(event -> darkThemeButton.setStyle(""));
+            darkThemeButton.setOnMouseExited(event -> darkThemeButton.setStyle(""));
+        }
     }
 }
