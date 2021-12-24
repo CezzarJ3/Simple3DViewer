@@ -172,4 +172,15 @@ public class GraphicConveyor {
     public static Point2f vertexToPoint(final Vector3f vertex, final int width, final int height) {
         return new Point2f(vertex.getX() * width + width / 2.0F, -vertex.getY() * height + height / 2.0F);
     }
+
+    public static Matrix4f getModelViewProjectionMatrix(Camera camera, float sx, float sy, float sz, float rx, float ry, float rz, float tx, float ty, float tz) {
+        Matrix4f modelMatrix = rotateScaleTranslate(sx, sy, sz, rx, ry, rz, tx, ty, tz);
+        Matrix4f viewMatrix = camera.getViewMatrix();
+        Matrix4f projectionMatrix = camera.getProjectionMatrix();
+        Matrix4f modelViewProjectionMatrix = modelMatrix;
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(viewMatrix, modelViewProjectionMatrix);
+        modelViewProjectionMatrix = Matrix4f.multiplicationByAMatrix(projectionMatrix, modelViewProjectionMatrix);
+
+        return modelViewProjectionMatrix;
+    }
 }

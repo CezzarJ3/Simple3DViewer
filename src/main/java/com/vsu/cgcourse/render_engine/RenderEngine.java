@@ -1,5 +1,6 @@
 package com.vsu.cgcourse.render_engine;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import com.vsu.cgcourse.math.Matrix4f;
@@ -8,6 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 import com.vsu.cgcourse.model.Mesh;
 
 import com.vsu.cgcourse.math.Point2f;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import static com.vsu.cgcourse.render_engine.GraphicConveyor.*;
 
@@ -52,6 +55,28 @@ public class RenderEngine {
                 Point2f resultPoint = vertexToPoint(Matrix4f.multiplicationByVector3f(modelViewProjectionMatrix, vertex), width, height);
                 resultPoints.add(resultPoint);
             }
+
+            Vector3f lightVector = Vector3f.subtractVectors(camera.getTarget(), camera.getPosition());
+            lightVector = Vector3f.normalization(lightVector);
+
+            Vector3f vector1 = Matrix4f.multiplicationByVector3f(modelMatrix, mesh.vertices.get(mesh.polygonVertexIndices.get(polygonInd).get(0)));
+            Vector3f vector2 = Matrix4f.multiplicationByVector3f(modelMatrix, mesh.vertices.get(mesh.polygonVertexIndices.get(polygonInd).get(1)));
+            Vector3f vector3 = Matrix4f.multiplicationByVector3f(modelMatrix, mesh.vertices.get(mesh.polygonVertexIndices.get(polygonInd).get(2)));
+            Vector3f polygonNormal = Vector3f.crossProduct(Vector3f.subtractVectors(vector2, vector1), Vector3f.subtractVectors(vector3, vector1));
+            polygonNormal = Vector3f.normalization(polygonNormal);
+
+            float constantLightCoefficient = Math.abs(Vector3f.dotProduct(lightVector, polygonNormal));
+//            System.out.println("coefficient" + constantLightCoefficient);
+
+            double[] resultPointsX = new double[resultPoints.size()];
+            double[] resultPointsY = new double[resultPoints.size()];
+            for (int pointInd = 0; pointInd < resultPoints.size(); pointInd++) {
+                resultPointsX[pointInd] = resultPoints.get(pointInd).getX();
+                resultPointsY[pointInd] = resultPoints.get(pointInd).getY();
+            }
+
+            graphicsContext.setFill(new Color(0.4f * (constantLightCoefficient), 0.72f * (constantLightCoefficient), 0.46f * (constantLightCoefficient), 1f));
+            graphicsContext.fillPolygon(resultPointsX, resultPointsY, resultPoints.size());
 
             for (int vertexInPolygonInd = 1; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
                 graphicsContext.strokeLine(

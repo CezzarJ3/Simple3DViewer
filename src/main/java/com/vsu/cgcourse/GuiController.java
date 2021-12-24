@@ -1,7 +1,10 @@
 package com.vsu.cgcourse;
 
+import com.vsu.cgcourse.math.Matrix4f;
+import com.vsu.cgcourse.math.Point2f;
 import com.vsu.cgcourse.math.Vector3f;
 import com.vsu.cgcourse.obj_writer.ObjWriter;
+import com.vsu.cgcourse.render_engine.GraphicConveyor;
 import javafx.fxml.FXML;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -19,11 +22,16 @@ import javafx.util.Duration;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import com.vsu.cgcourse.model.Mesh;
 import com.vsu.cgcourse.obj_reader.ObjReader;
 import com.vsu.cgcourse.render_engine.Camera;
 import com.vsu.cgcourse.render_engine.RenderEngine;
+
+import static com.vsu.cgcourse.render_engine.GraphicConveyor.rotateScaleTranslate;
+import static com.vsu.cgcourse.render_engine.GraphicConveyor.vertexToPoint;
 
 public class GuiController {
 
@@ -105,7 +113,7 @@ public class GuiController {
             String fileContent = Files.readString(fileName);
             mesh = ObjReader.read(fileContent);
 
-            // todo: обработка ошибок (готово?)
+            // todo: обработка ошибок
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка чтения!");
@@ -117,21 +125,65 @@ public class GuiController {
     //todo: тут надо доделать после исправления ошибок
     @FXML
     private void onWriteModelMenuItemClick() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
-        fileChooser.setTitle("Write Model");
+        Alert chooseMeshToWrite = new Alert(Alert.AlertType.CONFIRMATION);
+        chooseMeshToWrite.setTitle("Choose model to save");
+        chooseMeshToWrite.setHeaderText("С моделью производились изменения, какую версию сохранить?");
+        chooseMeshToWrite.setContentText("Выберите версию.");
 
-        File file = fileChooser.showSaveDialog((Stage) canvas.getScene().getWindow());
-        try {
-            String filename = file.getAbsolutePath();
-            System.out.println(filename);
-            ObjWriter.write(mesh, filename);
+        ButtonType buttonSaveOriginalMesh = new ButtonType("Начальная модель.");
+        ButtonType buttonSaveAlteredMesh = new ButtonType("Изменнёная модель.");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        chooseMeshToWrite.getButtonTypes().setAll(buttonSaveOriginalMesh, buttonSaveAlteredMesh, buttonTypeCancel);
 
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ошибка записи!");
-            alert.setContentText("\tПроизошла ошибка записи!\n" + e.getMessage());
-            alert.showAndWait();
+        Optional<ButtonType> result = chooseMeshToWrite.showAndWait();
+        if (result.get() == buttonSaveOriginalMesh) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
+            fileChooser.setTitle("Write Model");
+
+            File file = fileChooser.showSaveDialog((Stage) canvas.getScene().getWindow());
+            try {
+                String filename = file.getAbsolutePath();
+                System.out.println(filename);
+                ObjWriter.write(mesh, filename);
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка записи!");
+                alert.setContentText("\tПроизошла ошибка записи!\n" + e.getMessage());
+                alert.showAndWait();
+            }
+        } else if (result.get() == buttonSaveAlteredMesh) {
+//            Matrix4f MVPMatrix = GraphicConveyor.rotateScaleTranslate(sx, sy, sz, rx, ry, rz, tx, ty, tz);
+//
+//            final int nPolygons = mesh.polygonVertexIndices.size();
+//            for (int polygonInd = 0; polygonInd < nPolygons; ++polygonInd) {
+//                final int nVerticesInPolygon = mesh.polygonVertexIndices.get(polygonInd).size();
+//
+//                for (int vertexInPolygonInd = 0; vertexInPolygonInd < nVerticesInPolygon; ++vertexInPolygonInd) {
+//                    Vector3f vertex = mesh.vertices.get(mesh.polygonVertexIndices.get(polygonInd).get(vertexInPolygonInd));
+//                    mesh.vertices.set(vertexInPolygonInd, Matrix4f.multiplicationByVector3f(MVPMatrix, vertex));
+//                }
+//
+//            }
+//
+//            FileChooser fileChooser = new FileChooser();
+//            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Model (*.obj)", "*.obj"));
+//            fileChooser.setTitle("Write Model");
+//
+//            File file = fileChooser.showSaveDialog((Stage) canvas.getScene().getWindow());
+//            try {
+//                String filename = file.getAbsolutePath();
+//                System.out.println(filename);
+//                ObjWriter.write(mesh, filename);
+//
+//            } catch (Exception e) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Ошибка записи!");
+//                alert.setContentText("\tПроизошла ошибка записи!\n" + e.getMessage());
+//                alert.showAndWait();
+//            }
+            //todo: сделать запись изменённой модели
         }
 
         // todo: обработка ошибок (выполнена?)
@@ -220,17 +272,17 @@ public class GuiController {
     public void handlerRotateAndTranslateModel(MouseEvent mouseEvent) {
         if (mouseEvent.isPrimaryButtonDown()) {
             if (mouseEvent.getX() - positionPrimaryButtonX > 10) {
-                ry++;
+                ry--;
                 positionPrimaryButtonX = (float) mouseEvent.getX();
             } else if (mouseEvent.getX() - positionPrimaryButtonX < -10) {
-                ry--;
+                ry++;
                 positionPrimaryButtonX = (float) mouseEvent.getX();
             }
             if (mouseEvent.getY() - positionPrimaryButtonY > 10) {
-                rx++;
+                rx--;
                 positionPrimaryButtonY = (float) mouseEvent.getY();
             } else if (mouseEvent.getY() - positionPrimaryButtonY < -10) {
-                rx--;
+                rx++;
                 positionPrimaryButtonY = (float) mouseEvent.getY();
             }
         }
@@ -252,10 +304,10 @@ public class GuiController {
         }
         if (mouseEvent.isControlDown() && mouseEvent.isPrimaryButtonDown()) {
             if (mouseEvent.getX() - positionPrimaryControlX > 10) {
-                rz++;
+                rz--;
                 positionPrimaryControlX = (float) mouseEvent.getX();
             } else if (mouseEvent.getX() - positionPrimaryControlX < -10) {
-                rz--;
+                rz++;
                 positionPrimaryControlX = (float) mouseEvent.getX();
             }
         }
