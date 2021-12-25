@@ -344,7 +344,7 @@ public class GuiController {
     @FXML
     public void changeTheme(MouseEvent mouseEvent) {
        if(mouseEvent.isPrimaryButtonDown()){
-           anchorPane.setStyle("-fx-background-color: black");
+           anchorPane.setStyle("-fx-background-color: #2C2C2C");
            darkFile.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
            darkCameraOptions.setStyle("-fx-background-color: #6B6B6B; -fx-text-fill: white;");
            canvas.getGraphicsContext2D().setStroke(Color.DODGERBLUE);
